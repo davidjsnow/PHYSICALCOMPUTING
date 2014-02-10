@@ -1,0 +1,347 @@
+/* KEYPAD MIDTERM ASSIGNMENT
+ * DAVID SNOW
+ * PHYSICAL COMPUTING
+ *
+ * DISCLAIMER:
+ *    -> Code was borrowed from http://playground.arduino.cc/Code/Keypad
+ *
+ * Where the pins should be plugged into
+ * =====================================
+ * Keypad Pin 3 - Arduino digital 2
+ * Keypad Pin 1 - Arduino digital 3
+ * Keypad Pin 5 - Arduino digital 4
+ * Keypad Pin 2 - Arduino digital 5
+ * Keypad Pin 7 - Arduino digital 6
+ * Keypad Pin 6 - Arduino digital 7
+ * Keypad Pin 4 - Arduino digital 8
+ * =====================================
+ */
+ 
+//Import Keypad Library (Installed off site)
+#include <Keypad.h>
+
+//Declare Variables
+//================================================================================================================================
+const int ledR = 13;
+const int ledG = 12;
+const int ledOne = A1;
+const int ledTwo = A2;
+const int ledThree = A3;
+const int ledFour = A4;
+
+//Variable for Lock open or not
+boolean Open = false;
+
+//Variable for amount of presses 
+int Press;
+
+//Variables for storing correct value
+int code1;
+int code2;
+int code3;
+int code4;
+
+const byte ROWS = 4; // Four rows
+const byte COLS = 3; // Three columns
+
+// Define the Keymap
+char keys[ROWS][COLS] = {
+  {
+    '1','2','3'            }
+  ,
+  {
+    '4','5','6'            }
+  ,
+  {
+    '7','8','9'            }
+  ,
+  {
+    '#','0','*'            }
+};
+// Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
+byte rowPins[ROWS] = { 
+  5, 6, 7, 8 };
+// Connect keypad COL0, COL1 and COL2 to these Arduino pins.
+byte colPins[COLS] = { 
+  2, 3, 4 }; 
+
+// Create the Keypad
+Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+
+//Setup
+//================================================================================================================================
+void setup()
+{
+  Serial.begin(9600);
+
+  //Has not been opened yet
+  Open = false;
+  
+  //Press is set lower to add up easier
+  Press = -1;
+
+  //Codes have not been pressed correctly yet
+  code1 = 0;
+  code2 = 0;
+  code3 = 0;
+  code4 = 0;
+
+  //Set up blinking
+  pinMode(ledR,OUTPUT);
+  pinMode(ledG,OUTPUT);
+  pinMode(ledOne,OUTPUT);
+  pinMode(ledTwo,OUTPUT);
+  pinMode(ledThree,OUTPUT);
+  pinMode(ledFour,OUTPUT);
+  digitalWrite(ledR, HIGH);
+  digitalWrite(ledG, HIGH);
+  digitalWrite(ledOne, HIGH);
+  digitalWrite(ledTwo, HIGH);
+  digitalWrite(ledThree, HIGH);
+  digitalWrite(ledFour, HIGH);
+  delay(500);
+  digitalWrite(ledR, LOW);
+  digitalWrite(ledG, LOW);
+  digitalWrite(ledOne, LOW);
+  digitalWrite(ledTwo, LOW);
+  digitalWrite(ledThree, LOW);
+  digitalWrite(ledFour, LOW);
+}
+
+//Looping Code
+//================================================================================================================================
+void loop()
+{
+  //Grab key pressed data
+  char key = kpd.getKey();
+  
+  if(key)  // Check for a valid key.
+  {
+    //Case system for jumping to presses
+    switch (key)
+    {
+    //CASE ONE
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '1':
+      Press = Press + 1;
+      Serial.println(key);
+      if(code1 == 0 && code2 == 0 && code3 == 0 && code4 == 0 && Press <= 0){ 
+        digitalWrite(ledOne, HIGH);
+        code1 = 1;
+      }
+      else{
+        if(Press == 0 && code1 == 0){
+          digitalWrite(ledOne, HIGH);
+        }
+        if(Press == 1 && code2 == 0){
+          digitalWrite(ledTwo, HIGH);
+        }
+        if(Press == 2 && code3 == 0){
+          digitalWrite(ledThree, HIGH);
+        }
+        if(Press == 3 && code4 == 0){
+          digitalWrite(ledFour, HIGH);
+        }
+      }
+      break;
+    //CASE TWO
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '2':
+      Press = Press + 1;
+      Serial.println(key);
+      if(code1 == 1 && code2 == 0 && code3 == 0 && code4 == 0){ 
+        digitalWrite(ledTwo, HIGH);
+        code2 = 1;
+      }
+      else{
+        if(Press == 0 && code1 == 0){
+          digitalWrite(ledOne, HIGH);
+        }
+        if(Press == 1 && code2 == 0){
+          digitalWrite(ledTwo, HIGH);
+        }
+        if(Press == 2 && code3 == 0){
+          digitalWrite(ledThree, HIGH);
+        }
+        if(Press == 3 && code4 == 0){
+          digitalWrite(ledFour, HIGH);
+        }
+      }
+      break;
+    //CASE THREE
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '3':
+      Press = Press + 1;
+      Serial.println(key);
+      if(code1 == 1 && code2 == 1 && code3 == 0 && code4 == 0){ 
+        digitalWrite(ledThree, HIGH);
+        code3 = 1;
+      }
+      else{
+        if(Press == 0 && code1 == 0){
+          digitalWrite(ledOne, HIGH);
+        }
+        if(Press == 1 && code2 == 0){
+          digitalWrite(ledTwo, HIGH);
+        }
+        if(Press == 2 && code3 == 0){
+          digitalWrite(ledThree, HIGH);
+        }
+        if(Press == 3 && code4 == 0){
+          digitalWrite(ledFour, HIGH);
+        }
+      }
+      break;
+    //CASE FOUR
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '4':
+      Press = Press + 1;
+      Serial.println(key);
+      if(code1 == 1 && code2 == 1 && code3 == 1 && code4 == 0){ 
+        digitalWrite(ledFour, HIGH);
+        code4 = 1;
+      }
+      else{
+        if(Press == 0 && code1 == 0){
+          digitalWrite(ledOne, HIGH);
+        }
+        if(Press == 1 && code2 == 0){
+          digitalWrite(ledTwo, HIGH);
+        }
+        if(Press == 2 && code3 == 0){
+          digitalWrite(ledThree, HIGH);
+        }
+        if(Press == 3 && code4 == 0){
+          digitalWrite(ledFour, HIGH);
+        }
+      }
+      break;
+    //CASE *
+    //Reseting all numbers and LED's
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '*':
+      digitalWrite(ledG, LOW);
+      digitalWrite(ledR, LOW);
+      digitalWrite(ledOne, LOW);
+      digitalWrite(ledTwo, LOW);
+      digitalWrite(ledThree, LOW);
+      digitalWrite(ledFour, LOW);
+
+      Press = -1;
+      Open = false;
+      code1 = 0;
+      code2 = 0;
+      code3 = 0;
+      code4 = 0;
+      
+      break;
+    //CASE ONE
+    //Reseting all numbers and LED's
+    //----------------------------------------------------------------------------------------------------------------------------
+    case '#':
+      digitalWrite(ledG, LOW);
+      digitalWrite(ledR, LOW);
+      digitalWrite(ledOne, LOW);
+      digitalWrite(ledTwo, LOW);
+      digitalWrite(ledThree, LOW);
+      digitalWrite(ledFour, LOW);
+
+      Press = -1;
+      Open = false;
+      code1 = 0;
+      code2 = 0;
+      code3 = 0;
+      code4 = 0;
+      
+      break;
+    //DEFAULT CASE
+    //----------------------------------------------------------------------------------------------------------------------------    
+    default:
+      //Only check for values other than verification numbers, so no conflict
+      if((key) != '1' && '2' && '3' && '4'){
+        Press = Press + 1;
+      }
+      
+      //Light up the LED's even if correct code is not pressed
+      if(Press == 0 && code1 == 0){
+        digitalWrite(ledOne, HIGH);
+      }
+      if(Press == 1 && code2 == 0){
+        digitalWrite(ledTwo, HIGH);
+      }
+      if(Press == 2 && code3 == 0){
+        digitalWrite(ledThree, HIGH);
+      }
+      if(Press == 3 && code4 == 0){
+        digitalWrite(ledFour, HIGH);
+      }
+      
+      //Feed Serial monitor information
+      Serial.println(key);
+      Serial.println(Press);
+      Serial.println(code1);
+      Serial.println(code2);
+      Serial.println(code3);
+      Serial.println(code4);
+    }   
+  }
+  
+  //Reset pass system when all four buttons are pressed
+  //-------------------------------------------------------------------------------------------------------------------------------
+  if(Press == 3 && code2 == 0 && code3 == 0 && code4 == 0){
+    digitalWrite(ledR, HIGH);
+    delay(100);
+    digitalWrite(ledR, LOW);
+    delay(100);
+    digitalWrite(ledR, HIGH);
+    delay(100);
+    digitalWrite(ledR, LOW);
+
+    digitalWrite(ledOne, LOW);
+    digitalWrite(ledTwo, LOW);
+    digitalWrite(ledThree, LOW);
+    digitalWrite(ledFour, LOW);
+
+    Press = -1;
+    Open = false;
+    code1 = 0;
+    code2 = 0;
+    code3 = 0;
+    code4 = 0;
+  }
+
+  //Show that the right buttons have been pressed in sequence
+  //Show light effects and keep green light on
+  //-------------------------------------------------------------------------------------------------------------------------------
+  if (Open == false){
+    if (code1 == 1 && code2 == 1 && code3 == 1 && code4 == 1){ 
+      digitalWrite(ledG, HIGH);
+      digitalWrite(ledOne, HIGH);
+      digitalWrite(ledTwo, HIGH);
+      digitalWrite(ledThree, HIGH);
+      digitalWrite(ledFour, HIGH);
+      delay(500);
+      digitalWrite(ledOne, LOW);
+      digitalWrite(ledTwo, LOW);
+      digitalWrite(ledThree, LOW);
+      digitalWrite(ledFour, LOW);
+      delay(200);
+      digitalWrite(ledOne, HIGH);
+      digitalWrite(ledTwo, HIGH);
+      digitalWrite(ledThree, HIGH);
+      digitalWrite(ledFour, HIGH);
+      delay(500);
+      digitalWrite(ledOne, LOW);
+      digitalWrite(ledTwo, LOW);
+      digitalWrite(ledThree, LOW);
+      digitalWrite(ledFour, LOW);
+      Open = true;
+    }
+  }
+
+}
+
+
+
+
+
