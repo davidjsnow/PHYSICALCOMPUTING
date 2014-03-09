@@ -1,0 +1,79 @@
+/*KEYPAD MIDTERM ASSIGNMENT
+ * DAVID SNOW
+ * PHYSICAL COMPUTING
+ * March, 10, 2014
+ *
+ * DISCLAIMER:
+ *    -> Code was borrowed from http://playground.arduino.cc/Code/Keypad
+ *
+ * Where the pins should be plugged into
+ * =====================================
+ * Keypad Pin 3 - Arduino digital 2
+ * Keypad Pin 1 - Arduino digital 3
+ * Keypad Pin 5 - Arduino digital 4
+ * Keypad Pin 2 - Arduino digital 5
+ * Keypad Pin 7 - Arduino digital 6
+ * Keypad Pin 6 - Arduino digital 7
+ * Keypad Pin 4 - Arduino digital 8
+ * =====================================
+ */
+ 
+#include <Keypad.h>
+
+const byte ROWS = 4; // Four rows
+const byte COLS = 3; // Three columns
+
+// Define the Keymap
+char keys[ROWS][COLS] = {
+  {'1','2','3'},
+  {'4','5','6'},
+  {'7','8','9'},
+  {'#','0','*'}
+};
+// Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
+byte rowPins[ROWS] = { 5, 6, 7, 8 };
+// Connect keypad COL0, COL1 and COL2 to these Arduino pins.
+byte colPins[COLS] = { 2, 3, 4 }; 
+
+// Create the Keypad
+Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  char key = kpd.getKey();
+  if(key)  // Check for a valid key.
+  {
+    switch (key)
+    {
+
+      case '0':
+        Serial.println(key);
+        tone(9, 400, 10);
+        break;
+      case '1':
+        Serial.println(key);
+        tone(9, 425, 10);
+        break;
+      case '2':
+        Serial.println(key);
+        tone(9, 450, 10);
+        break;
+      case '3':
+        Serial.println(key);
+        tone(9, 475, 10);
+        break;
+      case '4':
+        Serial.println(key);
+        tone(9, 500, 10);
+        break;
+      default:
+        Serial.println(key);
+        tone(9, 350, 10);
+    }
+  }
+}
