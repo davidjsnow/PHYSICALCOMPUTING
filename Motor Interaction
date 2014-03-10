@@ -1,0 +1,26 @@
+/* Lab #4
+ * DAVID SNOW
+ * PHYSICAL COMPUTING
+ * March, 10, 2014
+*/
+
+const int ledPin =  2;      // the number of the LED pin
+int dcMotor = 9;            //set up dcMotor location
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);      
+
+  // Sets up motor as an output
+  pinMode(dcMotor, OUTPUT);
+}
+
+void loop(){
+ 
+ //Get motor to spin in order to complete cicuit
+ digitalWrite(dcMotor, HIGH); 
+ 
+ //When cicuit is completed by spinning motor turn HIGH
+ digitalWrite(ledPin, HIGH);
+ 
+}
