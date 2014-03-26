@@ -1,0 +1,47 @@
+/*
+//DAVID SNOW
+//PHYSICAL COMPUTING DIGF 2B03
+//KATE HARTMAN
+//MARCH, 25, 2014
+//
+//CODE BORROWED FROM http://arduino.cc/en/Tutorial/PhysicalPixel
+*/
+
+import processing.serial.*; 
+
+float boxX;
+float boxY;
+int boxSize = 100;
+boolean mouseOverBox = false;
+
+Serial port; 
+
+void setup() {
+  size(500, 500);
+  boxX = width/2.0;
+  boxY = height/2.0;
+  rectMode(RADIUS); 
+
+  println(Serial.list()); 
+ 
+  port = new Serial(this, Serial.list()[0], 9600);
+}
+
+void draw() 
+{ 
+  background(0);
+
+
+  if (port.read == 'H') {
+    mouseOverBox = true;  
+    stroke(255); 
+    fill(250,0,0);
+  } 
+  else {
+    stroke(153);
+    fill(0,0,250);     
+    mouseOverBox = false;
+  }
+
+  ellipse(boxX, boxY, boxSize, boxSize);
+}
