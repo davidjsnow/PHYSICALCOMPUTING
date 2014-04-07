@@ -1,0 +1,152 @@
+// Learning Processing
+// Daniel Shiffman
+// http://www.learningprocessing.com
+
+// Example 5-3: Rollovers
+
+PImage bg;
+int numOne, numTwo, numThree, numFour, numFive, numSix, rando;
+
+
+void setup() {
+  size(1080,720);
+  
+  bg = loadImage("terminal.png");
+  
+  numOne = 64;
+  numTwo = 71;
+  numThree = 70;
+  numFour = 65;
+  numFive = 69;
+  numSix = 61;
+}
+
+void draw() {
+  background(bg);
+  
+  // Fill a black color
+  noStroke();
+  fill(0);
+  
+    //fill( 0, 232, 195);
+  
+  // First section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numOne, 537, 149);
+  
+    // second section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numTwo, 805, 149);
+  
+      // second section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numThree, 805, 350);
+  
+        // second section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numFour, 537, 350);
+  
+          // second section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numFive, 537, 550);
+  
+            // second section
+  textSize(36);
+  fill( 255, 0, 0);
+  text(numFive, 805, 550);
+
+
+  rando = int(random(0,500));
+  
+  //First Section
+  if(rando >= 250){
+    numOne = numOne + 1;
+  }
+  else{
+    numOne = numOne - 1;
+  }
+  if(numOne >= 68){
+    numOne = numOne -1;
+  }
+  if(numOne <= 63){
+    numOne = numOne +1;
+  }
+  
+    //Second Section
+  if(rando >= 250){
+    numTwo = numTwo + 1;
+  }
+  else{
+    numTwo = numTwo - 1;
+  }
+  if(numTwo >= 75){
+    numTwo = numTwo -2;
+  }
+  if(numTwo <= 68){
+    numTwo = numTwo +3;
+  }
+  
+   //Third Section
+  if(rando >= 250){
+    numThree = numThree + 1;
+  }
+  else{
+    numThree = numThree - 1;
+  }
+  if(numThree >= 74){
+    numThree = numThree -2;
+  }
+  if(numThree <= 65){
+    numThree = numThree +2;
+  }
+  
+   //Four Section
+  if(rando >= 250){
+    numFour = numFour + 1;
+  }
+  else{
+    numFour = numFour - 1;
+  }
+  if(numFour >= 68){
+    numFour = numFour -1;
+  }
+  if(numFour <= 63){
+    numFour = numFour +1;
+  }
+  
+     //Five Section
+  if(rando >= 250){
+    numFive = numFive + 1;
+  }
+  else{
+    numFive = numFive - 1;
+  }
+  if(numFive >= 72){
+    numFive = numFive -1;
+  }
+  if(numFive <= 65){
+    numFive = numFive +2;
+  }
+  
+       //Six Section
+  if(rando >= 250){
+    numSix = numSix + 1;
+  }
+  else{
+    numSix = numSix - 1;
+  }
+  if(numSix >= 68){
+    numSix = numSix -2;
+  }
+  if(numSix <= 63){
+    numSix = numSix +1;
+  }
+  
+  delay(1000);
+  
+}
